@@ -1,0 +1,13 @@
+{
+  "name": "lab_01",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "eventemmitter.js",
+  "scripts": {
+    "dev": "node eventemmitter.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
