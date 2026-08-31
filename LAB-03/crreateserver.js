@@ -1,9 +1,9 @@
 const http = require('http');
 
-const userdata = {
+const userdata = [{
     name: 'DEEPAK',
     age: 30
-};
+}];
 
 const server = http.createServer((req, res) => {
     const url = req.url;
@@ -20,6 +20,25 @@ const server = http.createServer((req, res) => {
     else if (url === '/data' && method === 'GET') {
         res.statusCode = 200;
         res.end(JSON.stringify(userdata));
+    }
+
+    else if (url === '/create' && method === 'POST') {
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+        req.on('end', () => {
+            const newData = JSON.parse(body);
+            
+            const newUserData = {
+                name: newData.name,
+                age: newData.age
+            };
+            userdata.push(newUserData);
+           
+            res.end('Data updated successfully');
+           
+        });
     }
     else {
         res.statusCode = 404;
