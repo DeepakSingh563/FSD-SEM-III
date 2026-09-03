@@ -29,15 +29,46 @@ const server = http.createServer((req, res) => {
         });
         req.on('end', () => {
             const newData = JSON.parse(body);
-            
+
             const newUserData = {
                 name: newData.name,
                 age: newData.age
             };
             userdata.push(newUserData);
-           
+
             res.end('Data updated successfully');
-           
+
+        });
+    }
+    else if (url.startsWith('/users/') && method === 'GET') {
+        const index = parseInt(url.split('/')[2]);
+        if (index >= 0 && index < userdata.length) {
+            res.end(JSON.stringify(userdata[index]));
+        }
+        else {
+            res.statusCode = 404;
+            res.end('User not found');
+        }
+
+    }
+
+
+    else if (url.startsWith('/update/') && method === 'PUT') {
+        const index = parseInt(url.split('/')[2]);
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+        req.on('end', () => {
+            const updatedData = JSON.parse(body);
+
+            const newUserData = {
+
+                age: updatedData.age
+            };
+
+            userdata[index].age = newUserData.age;
+            res.end('Data updated successfully');
         });
     }
     else {

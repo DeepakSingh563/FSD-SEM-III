@@ -11,6 +11,7 @@ function createFile() {
 
 async function readFile() {
     await fs.readFile(filepath, "utf8", (err, data) => {
+        
         console.log(data);
     });
 }
