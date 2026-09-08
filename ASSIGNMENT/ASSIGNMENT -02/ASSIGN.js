@@ -50,6 +50,21 @@ const server = http.createServer((req, res) => {
             }
         });
     }
+    else if(req.url.startswith('/delete/') && req.method === 'DELETE') {
+        const index = parseInt(req.url.split('/')[2]);
+        if (index >= 0 && index < userdata.length) {
+            userdata.splice(index, 1);
+            res.end('Data deleted successfully');
+        } else {
+            res.statusCode = 404;
+            res.end('User not found');
+        }
+    }
+    else {
+        res.statusCode = 404;
+        res.end('Not Found');
+    }   
+    
 });
 
 server.listen(3000, () => {
