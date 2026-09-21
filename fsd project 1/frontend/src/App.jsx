@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
-
-import StudentForm from "./components/StudentForm";
-import StudentList from "./components/StudentList";
+import StudentForm from "./Components/StudentForm";
+import StudentList from "./Components/StudentList";
+import "./App.css";
 
 function App() {
   const [students, setStudents] = useState([]);
 
   const getStudents = async () => {
-    const response = await fetch("http://localhost:5000/api/students");
-
-    const data = await response.json();
-
-    setStudents(data);
+    try {
+      const response = await fetch("http://localhost:5000/api/students");
+      const data = await response.json();
+      setStudents(data);
+    } catch (error) {
+      console.error("Error fetching students:", error);
+    }
   };
 
   useEffect(() => {
@@ -23,19 +25,20 @@ function App() {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:5000/api/students/${id}`, {
-      method: "DELETE",
-    });
-
-    setStudents(students.filter((student) => student.id !== id));
+    try {
+      await fetch(`http://localhost:5000/api/students/${id}`, {
+        method: "DELETE",
+      });
+      setStudents(students.filter((student) => student.id !== id));
+    } catch (error) {
+      console.error("Error deleting student:", error);
+    }
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>Student Management System</h1>
-
       <StudentForm onStudentAdded={handleStudentAdded} />
-
       <StudentList students={students} onDelete={handleDelete} />
     </div>
   );

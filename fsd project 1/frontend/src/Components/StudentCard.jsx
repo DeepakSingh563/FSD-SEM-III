@@ -1,13 +1,12 @@
 function StudentCard({ student, onDelete }) {
   return (
-    <div>
+    <div className="student-card">
       <h3>{student.name}</h3>
-
-      <p>Email: {student.email}</p>
-
-      <p>Course: {student.course}</p>
-
-      <button onClick={() => onDelete(student.id)}>Delete</button>
+      <p><strong>Email:</strong> {student.email}</p>
+      <p><strong>Course:</strong> {student.course}</p>
+      <button className="delete-btn" onClick={() => onDelete(student.id)}>
+        Delete
+      </button>
     </div>
   );
 }
