@@ -1,1 +1,23 @@
-[{}]
+[
+  {
+    "name": "ANKIT VERMA",
+    "age": 32
+  },
+  {
+    "name": "DEEPAK SINGH",
+    "age": 28,
+    
+  },
+  {
+    "name": "ROHIT",
+    "age": 25
+  },
+  {
+    "name": "ankit",
+    "age": 80
+  },
+  {
+    "name": "KAVITA",
+    "age": 21
+  }
+]

@@ -1,10 +1,3 @@
-let students = [
-  {
-    id: 1,
-    name: "Rahul",
-    email: "rahul@gmail.com",
-    course: "CSE",
-  },
-];
+let students = [];
 
 module.exports = students;

@@ -1,11 +1,9 @@
 const students = require("../data/students");
 
-// GET all students
 const getStudents = (req, res) => {
   res.json(students);
 };
 
-// GET one student
 const getStudent = (req, res) => {
   const id = Number(req.params.id);
 
@@ -20,7 +18,6 @@ const getStudent = (req, res) => {
   res.json(student);
 };
 
-// CREATE student
 const createStudent = (req, res) => {
   const { name, email, course } = req.body;
 
@@ -36,7 +33,6 @@ const createStudent = (req, res) => {
   res.status(201).json(newStudent);
 };
 
-// UPDATE student
 const updateStudent = (req, res) => {
   const id = Number(req.params.id);
 
@@ -55,7 +51,6 @@ const updateStudent = (req, res) => {
   res.json(student);
 };
 
-// DELETE student
 const deleteStudent = (req, res) => {
   const id = Number(req.params.id);
 

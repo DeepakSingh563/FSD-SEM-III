@@ -1,4 +1,7 @@
-const http = require('http');
+import http  from 'http'
+const cors =require('cors')
+
+
 
 const userdata = [{
     name: 'DEEPAK',
