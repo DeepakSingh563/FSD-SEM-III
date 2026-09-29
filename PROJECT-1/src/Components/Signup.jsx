@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const Signup = () => {
+const Signup = ({ setUser }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`Account created for: ${name}! Now redirecting to Login...`);
+
+    const userData = { name, email, password };
+    const res = await axios.post('http://localhost:5000/api/users/register', userData);
+
+    alert(res.data);
+    setUser({ name, email });
     navigate('/login');
   };
+
+
 
   const containerStyle = {
     maxWidth: '400px',

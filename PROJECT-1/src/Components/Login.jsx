@@ -1,17 +1,28 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const Login = () => {
+const Login = ({ user, setUser }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`Logged in successfully! Redirecting to Home...`);
-    navigate('/');
+
+    const userData = { email, password };
+    const res = await axios.post('http://localhost:5000/api/users/login', userData);
+
+    alert(res.data);
+
+    if (res.data === 'Login successful') {
+      setUser({ email });
+      navigate('/');
+    }
   };
+
+
 
   const containerStyle = {
     maxWidth: '400px',

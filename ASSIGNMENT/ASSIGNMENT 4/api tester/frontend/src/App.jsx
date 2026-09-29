@@ -1,38 +1,48 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import './App.css';
+import React, { useState } from "react";
+import axios from "axios";
+import "./App.css";
 
 function App() {
-  const [method, setMethod] = useState('GET');
-  const [url, setUrl] = useState('http://localhost:5000/api/test');
-  const [requestBody, setRequestBody] = useState('{\n  "message": "Hello Server",\n  "status": "testing"\n}');
+  const [method, setMethod] = useState("GET");
+  const [url, setUrl] = useState("http://localhost:5000/api/test");
+  const [requestBody, setRequestBody] = useState(
+    '{\n  "message": "Hello Server",\n  "status": "testing"\n}',
+  );
   const [responseStatus, setResponseStatus] = useState(null);
-  const [responseBody, setResponseBody] = useState('');
+  const [responseBody, setResponseBody] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSend = async () => {
     if (!url.trim()) return;
 
     setLoading(true);
-    setResponseBody('');
+    setResponseBody("");
     setResponseStatus(null);
 
     try {
       let data;
-      if (method === 'POST' && requestBody.trim()) {
+      if (method === "POST" && requestBody.trim()) {
         data = JSON.parse(requestBody);
       }
 
       const res = await axios({ method, url, data });
 
-      setResponseStatus({ code: res.status, text: res.statusText || 'OK', isSuccess: true });
+      setResponseStatus({
+        code: res.status,
+        text: res.statusText || "OK",
+        isSuccess: true,
+      });
       setResponseBody(JSON.stringify(res.data, null, 2));
     } catch (err) {
       if (err.response) {
-        setResponseStatus({ code: err.response.status, text: err.response.statusText || 'Error', isSuccess: false });
+        setResponseStatus({
+          code: err.response.status,
+          text: err.response.statusText || "Error",
+          isSuccess: false,
+        });
         setResponseBody(JSON.stringify(err.response.data, null, 2));
       } else {
-        setResponseStatus({ code: 'ERR', text: err.message, isSuccess: false });
+        setResponseStatus({ code: "ERR", text: err.message, isSuccess: false });
         setResponseBody(err.message);
       }
     } finally {
@@ -45,7 +55,9 @@ function App() {
       <header className="header">
         <div className="badge">Assignment 4</div>
         <h1>API Tester</h1>
-        <p className="subtitle">Interactive API client for GET & POST requests</p>
+        <p className="subtitle">
+          Interactive API client for GET & POST requests
+        </p>
       </header>
 
       <main className="card">
@@ -67,12 +79,16 @@ function App() {
             placeholder="http://localhost:5000/api/test"
           />
 
-          <button onClick={handleSend} disabled={loading} className="send-button">
-            {loading ? 'Sending...' : 'Send'}
+          <button
+            onClick={handleSend}
+            disabled={loading}
+            className="send-button"
+          >
+            {loading ? "Sending..." : "Send"}
           </button>
         </div>
 
-        {method === 'POST' && (
+        {method === "POST" && (
           <div className="section">
             <div className="section-header">
               <label htmlFor="req-body">Request Body (JSON)</label>
@@ -93,7 +109,9 @@ function App() {
           <div className="section-header">
             <label htmlFor="res-body">Response</label>
             {responseStatus && (
-              <div className={`status-pill ${responseStatus.isSuccess ? 'success' : 'error'}`}>
+              <div
+                className={`status-pill ${responseStatus.isSuccess ? "success" : "error"}`}
+              >
                 Status: {responseStatus.code} {responseStatus.text}
               </div>
             )}
