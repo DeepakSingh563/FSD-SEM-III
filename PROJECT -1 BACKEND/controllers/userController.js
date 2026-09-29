@@ -22,7 +22,7 @@ const loginUser = (req, res) => {
   const users = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
   const user = users.find(
-    (user) => user.email == email && user.password == password
+    (user) => user.email === email && user.password === password
   );
 
   if (user) {
